@@ -20,9 +20,11 @@ use App\Http\Controllers\PageController;
 // });
 
 Route::prefix('user')->group(function(){
-    Route::get('/sign-in', [LoginController::class, 'index']);
-    Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/sign-in', [LoginController::class, 'signin']);
+    Route::post('/login', [LoginController::class, 'login'])->name('login.login');
+    Route::get('/sign-up', [LoginController::class, 'signup'])->name('signup');
     Route::post('/register', [LoginController::class, 'register']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout.logout');
 });
 
 Route::prefix('page')->group(function(){
