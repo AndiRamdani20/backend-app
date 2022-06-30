@@ -6,35 +6,29 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function signin(Request $request)
+    public function index()
     {
-        if ($request->session()->has('auth_token')) {
-            //sudah login
-            return redirect('page/dashboard');
-        } else {
-            $error = '';
-            return view('user.login', compact('error'));
-        }
+        return view('user.login');
     }
 
-    public function login(Request $request)
+    public function store(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password')))
         {
-            $error = 'Login Gagal';
-            return view('user.login', compact('error'));
+            return redirect()->back();
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return view('page.dashboard', compact('token'));
+        return view('page.dashboard');
     }
 
     public function signup()
@@ -42,7 +36,7 @@ class LoginController extends Controller
         return view('user.register');
     }
 
-    public function register(Request $request)
+    public function registore(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
@@ -51,7 +45,7 @@ class LoginController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());       
+            return redirect()->back();       
         }
 
         $user = User::create([
@@ -62,13 +56,13 @@ class LoginController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return view('user.login', compact('token'));
+        return redirect('page/dashboard')->with('token', $token);
     }
 
     public function logout()
     {
         auth()->user()->tokens()->delete();
 
-        return redirect('user/sign-in');
+        return redirect('user/login');
     }
 }

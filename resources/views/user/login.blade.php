@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/apple-icon.png')}}">
     <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
     <title>
-        Argon Dashboard 2 by Creative Tim
+        Login
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -32,7 +32,7 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('login.login') }}" method="POST">
+                    <form action="{{ route('login.store') }}" method="POST">
                       @csrf
                         <div class="mb-3">
                             <label for="floatingInput">Email</label>
@@ -49,17 +49,14 @@
                         <div class="text-center">
                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
                         </div>
-                        @if ($error != '')
-                            <span class="text-danger mb-4">{{ $error }}</span>
-                        @endif
                     </form>
                 </div>
-                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                {{-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="{{ route('signup') }}" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="{{ url('/user/register') }}" class="text-primary text-gradient font-weight-bold">Sign up</a>
                   </p>
-                </div>
+                </div> --}}
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">

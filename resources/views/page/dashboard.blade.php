@@ -122,16 +122,18 @@
               <input type="text" class="form-control" placeholder="Type here...">
             </div>
           </div>
+          <div class="pe-md-3 d-flex align-items-center mt-3">
+            <form method="POST" action="{{ route('logout.logout') }}">
+              @csrf
+              <button type="submit" class="btn btn-light">Logout</button>
+            </form>
+          </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
               {{-- <a href="{{ route('logout.logout') }}" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Log Out</span>
               </a> --}}
-              <form method="POST" action="{{ route('logout.logout') }}">
-                @csrf
-                <button type="submit" class="btn btn-primary">Logout</button>
-              </form>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
